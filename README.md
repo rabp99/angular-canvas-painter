@@ -10,7 +10,7 @@ Angular.js directive to paint on a canvas on desktop or touch devices
 
 [View Demo](http://pwambach.github.io/angular-canvas-painter/)
 
-fixed issue when drawing on mobile devices
+Fixed issue when drawing on mobile devices.
 
 ## Usage
 1. `bower install angular-canvas-painter`
