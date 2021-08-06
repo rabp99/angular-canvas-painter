@@ -1,7 +1,7 @@
 /*!
  * angular-canvas-painter - v0.6.0
  *
- * Copyright (c) 2017, Philipp Wambach
+ * Copyright (c) 2021, Philipp Wambach
  * Released under the MIT license.
  */
 'use strict';
@@ -34,7 +34,7 @@ module.run(['$templateCache', function($templateCache) {
 
 
 angular.module('pw.canvas-painter')
-  .directive('pwCanvas', function() {
+  .directive('pwCanvas', ["$window", function($window) {
     return {
       restrict: 'AE',
       scope: {
@@ -162,13 +162,21 @@ angular.module('pw.canvas-painter')
         };
 
         var setPointFromEvent = function(point, e) {
-          if (isTouch) {
-            point.x = e.changedTouches[0].pageX - getOffset(e.target).left;
-            point.y = e.changedTouches[0].pageY - getOffset(e.target).top;
-          } else {
-            point.x = e.offsetX !== undefined ? e.offsetX : e.layerX;
-            point.y = e.offsetY !== undefined ? e.offsetY : e.layerY;
-          }
+            if (isTouch) {
+                var body = document.body,
+                html = document.documentElement;
+
+                var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                    html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+                var y = e.changedTouches[0].pageY - ((height - $window.innerHeight) + getOffset(e.target).top);
+
+                point.x = e.changedTouches[0].pageX - getOffset(e.target).left;
+                point.y = y;
+            } else {
+                point.x = e.offsetX !== undefined ? e.offsetX : e.layerX;
+                point.y = e.offsetY !== undefined ? e.offsetY : e.layerY;
+            }
         };
 
 
@@ -301,7 +309,7 @@ angular.module('pw.canvas-painter')
         initListeners();
       }
     };
-  });
+  }]);
 
 
 

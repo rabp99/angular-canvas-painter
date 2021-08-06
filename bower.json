@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git://github.com/pwambach/angular-canvas-painter.git"
   },
-  "main": "dist/angular-canvas-painter.js",
+  "main": "dist/angular-canvas-painter.min.js",
   "keywords": [
     "angular",
     "canvas",

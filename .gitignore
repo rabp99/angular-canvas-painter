@@ -3,3 +3,6 @@ bower_components/
 node_modules/
 .tmp/
 .idea
+package-lock.json
+/nbproject/private/
+/nbproject/
